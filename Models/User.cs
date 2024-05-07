@@ -17,7 +17,6 @@ namespace Business_Calculator.Models
         [Required]
         public string Password { get; set; }
         public int Role {  get; set; }
-        public bool Subscription { get; set; }
 
     }
 }
