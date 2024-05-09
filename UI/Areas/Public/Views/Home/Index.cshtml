@@ -2,4 +2,159 @@
     ViewData["Title"] = "Main page";
 }
 
-<h1>Main page</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор бизнес-проекта</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    fieldset {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    input[type="number"],
+    select {
+        width: 97%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+</style>
+<body>
+    <h1>Калькулятор бизнес-проекта</h1>
+    <form asp-area="Public" asp-controller="Home" asp-action="Calculate" method="post">
+        <section class="section">
+            <h2>Исходные данные</h2>
+            <div class="input-group">
+                <label for="investment">Первоначальные инвестиции:</label>
+                <input type="number" id="investment" name="investment" required>
+            </div>
+            <div class="input-group">
+                <label for="projectDuration">Срок проекта (месяцы):</label>
+                <input type="number" id="projectDuration" name="projectDuration" required>
+            </div>
+        </section>
+        <section class="section">
+            <h2>Доходы</h2>
+            <div class="input-group">
+                <label for="monthlyIncome">Ежемесячный доход:</label>
+                <input type="number" id="monthlyIncome" name="monthlyIncome" required>
+            </div>
+            <div class="input-group">
+                <label for="monthlyIncomeGrowth">Ежемесячный рост дохода (%):</label>
+                <input type="number" id="monthlyIncomeGrowth" name="monthlyIncomeGrowth" placeholder="0">
+            </div>
+        </section>
+        <section class="section">
+            <h2>Расходы</h2>
+            <fieldset>
+                <legend>Единовременные расходы</legend>
+                <div class="input-group">
+                    <label for="equipmentCosts">Приобретение оборудования:</label>
+                    <input type="number" id="equipmentCosts" name="equipmentCosts">
+                </div>
+                <div class="input-group">
+                    <label for="materiaCosts">Приобретение материалов:</label>
+                    <input type="number" id="materiaCosts" name="materiaCosts">
+                </div>
+                <div class="input-group">
+                    <label for="otherOneTimeCosts">Прочие единовременные расходы:</label>
+                    <input type="number" id="otherOneTimeCosts" name="otherOneTimeCosts">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Ежемесячные расходы</legend>
+                <div class="input-group">
+                    <label for="utilityCosts">Коммунальные расходы:</label>
+                    <input type="number" id="utilityCosts" name="utilityCosts">
+                </div>
+                <div class="input-group">
+                    <label for="rent">Аренда:</label>
+                    <input type="number" id="rent" name="rent">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Расходы на сотрудников</legend>
+                <div class="input-group">
+                    <label for="averageSalary">Средняя заработная плата:</label>
+                    <input type="number" id="averageSalary" name="averageSalary">
+                </div>
+                <div class="input-group">
+                    <label for="countEmployees">Количество сотрудников:</label>
+                    <input type="number" id="countEmployees" name="countEmployees">
+                </div>
+            </fieldset>
+        </section>
+        <section class="section">
+            <h2>Прочие данные</h2>
+            <div class="input-group">
+                <label for="costPatentPerYear">Стоимость патента в год:</label>
+                <input type="number" id="costPatentPerYear" name="costPatentPerYear">
+            </div>
+            <div class="input-group">
+                <label for="taxSystem">Система налогообложения:</label>
+                <select id="taxSystem" name="taxSystem">
+                    <option value="income">Упрощенная (доходы)</option>
+                    <option value="incomeMinusExpenses">Упрощенная (доходы минус расходы)</option>
+                    <option value="patent">Патент</option>
+                </select>
+            </div>
+        </section>
+        <button type="submit">Рассчитать</button>
+        <p>Финансовый результат без налогов с прибыли: @TempData["FinancialResultWithoutIncomeTaxes"]</p>
+        <p>Финансовый результат с учетом выбранного налогооблажения: @TempData["FinancialResultWithIncomeTaxes"]</p>
+    </form>
+</body>
+</html>
